@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar-ui {
+  background-color: #3a4241;
+}
+
+.text-white {
+  color: #fff;
+  text-decoration: none;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 1.8rem;
+}
+
+.input-error {
+  border: 1px solid tomato !important;
+}
+
+.text-sm {
+  font-size: 0.8rem !important;
+  padding-left: 0 2 !important;
+}
+
+.text-error{
+  color: tomato !important;
+  font-size: 0.7rem !important;
+}
