@@ -64,3 +64,15 @@
   color: tomato !important;
   font-size: 0.7rem !important;
 }
+
+.active-page{
+  background:green !important;
+}
+.page-item.active .page-link{
+  background-color: #09CB96 !important;
+  border: solid 1px #09CB96 !important;
+  color: #fff !important
+}
+.page-item .page-link{
+ color: #3a4241 !important;
+}

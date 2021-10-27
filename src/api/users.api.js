@@ -1,7 +1,7 @@
 import { API_URL } from "../utils/constants";
 
-export const getAllUsers = async () => {
-  const response = await fetch(`${API_URL}/usuarios`);
+export const getAllUsers = async (page = 1) => {
+  const response = await fetch(`${API_URL}/usuarios?npp=5&page=${page}`);
   return response.json();
 };
 
