@@ -60,19 +60,27 @@
   padding-left: 0 2 !important;
 }
 
-.text-error{
+.text-error {
   color: tomato !important;
   font-size: 0.7rem !important;
 }
 
-.active-page{
-  background:green !important;
+
+.page-item.active .page-link {
+  background-color: #0abf78 !important;
+  border: solid 1px #0abf78 !important;
+  color: #fff !important;
 }
-.page-item.active .page-link{
-  background-color: #09CB96 !important;
-  border: solid 1px #09CB96 !important;
-  color: #fff !important
+.page-item .page-link {
+  color: #3a4241 !important;
 }
-.page-item .page-link{
- color: #3a4241 !important;
+
+.btn-success {
+  background-color: #0abf78 !important;
+  border: solid 1px #0abf78 !important;
+}
+
+.btn-danger {
+  background-color: tomato !important;
+  border: solid 1px tomato !important;
 }

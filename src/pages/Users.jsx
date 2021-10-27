@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import TableContent from "../components/users/Table";
 import Layout from "../layout/Layout";
 import ModalContent from "../components/global/Modal";
@@ -10,25 +10,50 @@ import MyPagination from "../components/global/Pagination";
 const Users = () => {
   const [show, setShow] = useState(false);
   const [reload, setReload] = useState(false);
+  const [search, setSearch] = useState({ name: "", last: "" });
   const [pagination, setPagination] = useState();
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState();
   useEffect(() => {
     const getUsers = () => {
-      getAllUsers(page).then((res) => {
+      getAllUsers(page, search.name, search.last).then((res) => {
         setUsers(res.users);
         setPagination(res.pagination);
       });
     };
     setReload(false);
     return getUsers();
-  }, [reload, page]);
-  console.log(pagination);
+  }, [reload, page, search]);
   return (
     <Layout>
       <div className="my-4">
         <p className="title">Listado de usuarios</p>
         <div className="my-4">
+          <Row className="w-75">
+            <Col>
+              <label className="text-sm">Buscar por nombre</label>
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Escribe para buscar por nombre"
+                onChange={(e) =>
+                  setSearch({ ...search, name: e.currentTarget.value })
+                }
+              />
+            </Col>
+            <Col>
+              <label className="text-sm">Buscar por apellido</label>
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Escribe para buscar por apellido"
+                onChange={(e) =>
+                  setSearch({ ...search, last: e.currentTarget.value })
+                }
+              />
+            </Col>
+          </Row>
+
           <Button
             onClick={() => setShow(true)}
             size="sm"

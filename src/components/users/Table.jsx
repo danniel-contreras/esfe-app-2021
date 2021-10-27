@@ -1,35 +1,69 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Table } from "react-bootstrap";
+import ModalContent from "../global/Modal";
+import FormContent from "./Form";
 
 const TableContent = ({ users }) => {
-  console.log(users);
+  const [showEdit, setShowEdit] = useState(false);
+  const [user, setUser] = useState();
+  const handleedit = (user) => {
+    setUser(user);
+    setShowEdit(true);
+  };
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>NOMBRE</th>
-          <th>APELLIDO</th>
-          <th>EMAIL</th>
-        </tr>
-      </thead>
-      <tbody>
-        {typeof users === "undefined" ? (
+    <>
+      <Table striped bordered hover>
+        <thead>
           <tr>
-            <p>Cargando resultados</p>
+            <th className="text-sm">ID</th>
+            <th className="text-sm">NOMBRE</th>
+            <th className="text-sm">APELLIDO</th>
+            <th className="text-sm">EMAIL</th>
+            <th className="text-sm">ACCIONES</th>
           </tr>
-        ) : (
-          users.map((us) => (
-            <tr key={us.Id}>
-              <td>{us.Id}</td>
-              <td>{us.Nombre}</td>
-              <td>{us.Apellido}</td>
-              <td>{us.Email}</td>
+        </thead>
+        <tbody>
+          {typeof users === "undefined" ? (
+            <tr>
+              <p>Cargando resultados</p>
             </tr>
-          ))
-        )}
-      </tbody>
-    </Table>
+          ) : (
+            users.map((us) => (
+              <tr key={us.Id}>
+                <td className="text-sm">{us.Id}</td>
+                <td className="text-sm">{us.Nombre}</td>
+                <td className="text-sm">{us.Apellido}</td>
+                <td className="text-sm">{us.Email}</td>
+                <td className="text-sm">
+                  <div className="d-flex">
+                    <Button
+                      onClick={() => handleedit(us)}
+                      size="sm"
+                      variant="success"
+                    >
+                      Editar
+                    </Button>
+                    <Button size="sm" variant="danger" className="mx-3">
+                      Eliminar
+                    </Button>
+                    <Button size="sm" variant="primary" className="px-3">
+                      Ver
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </Table>
+      <ModalContent
+        title="Actualizar usuario"
+        show={showEdit}
+        setShow={setShowEdit}
+      >
+        <FormContent user={user} />
+      </ModalContent>
+    </>
   );
 };
 
