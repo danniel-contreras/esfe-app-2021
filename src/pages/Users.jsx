@@ -5,7 +5,6 @@ import Layout from "../layout/Layout";
 import ModalContent from "../components/global/Modal";
 import FormContent from "../components/users/Form";
 import { getAllUsers } from "../api/users.api";
-import Pagination from "../components/global/Pagination";
 import MyPagination from "../components/global/Pagination";
 
 const Users = () => {
