@@ -70,7 +70,7 @@ const Users = () => {
             currentPage={pagination?.currentPage}
             pageClicked={setPage}
           >
-            <TableContent users={users} />
+            <TableContent setReload={setReload} users={users} />
           </MyPagination>
         </div>
       </div>

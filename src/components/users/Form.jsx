@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import * as yup from "yup";
-import { saveUser } from "../../api/users.api";
+import { saveUser, updateUser } from "../../api/users.api";
 
-const FormContent = ({ setReload, setShow }) => {
+const FormContent = ({ setReload, setShow, user }) => {
   const formik = useFormik({
-    initialValues: values(),
+    initialValues: values(user),
     validationSchema: yup.object({
       Nombre: yup.string().required("El nombre del usuario es requerido"),
       Apellido: yup.string().required("El apellido del usuario es requerido"),
@@ -17,6 +17,15 @@ const FormContent = ({ setReload, setShow }) => {
       Clave: yup.string().required("La clave del usuario es requerido"),
     }),
     onSubmit: (values) => {
+      if (user) {
+        updateUser(values, user?.Id).then((res) => {
+          if (res.ok) {
+            setReload(true);
+            setShow(false);
+          }
+        });
+        return;
+      }
       saveUser(values).then((res) => {
         if (res.ok) {
           setReload(true);
@@ -32,7 +41,9 @@ const FormContent = ({ setReload, setShow }) => {
         <Form.Control
           name="Nombre"
           type="text"
+          size="sm"
           onChange={formik.handleChange}
+          defaultValue={user && user.Nombre}
           placeholder="Ingresa el nombre"
           className={
             (formik.errors.Nombre && formik.touched.Nombre && "input-error ") +
@@ -48,8 +59,10 @@ const FormContent = ({ setReload, setShow }) => {
         <Form.Control
           name="Apellido"
           type="text"
+          size="sm"
           onChange={formik.handleChange}
           placeholder="Ingresa el apellido"
+          defaultValue={user && user.Apellido}
           className={
             (formik.errors.Apellido &&
               formik.touched.Apellido &&
@@ -63,10 +76,12 @@ const FormContent = ({ setReload, setShow }) => {
       <Form.Group className="mb-3">
         <Form.Label className="text-sm">Email</Form.Label>
         <Form.Control
+          size="sm"
           name="Email"
           type="email"
           onChange={formik.handleChange}
           placeholder="Ingresa el email"
+          defaultValue={user && user.Email}
           className={
             (formik.errors.Email && formik.touched.Email && "input-error ") +
             " text-sm"
@@ -79,6 +94,7 @@ const FormContent = ({ setReload, setShow }) => {
       <Form.Group className="mb-3">
         <Form.Label className="text-sm">Clave</Form.Label>
         <Form.Control
+          size="sm"
           name="Clave"
           type="password"
           onChange={formik.handleChange}
@@ -94,7 +110,7 @@ const FormContent = ({ setReload, setShow }) => {
       </Form.Group>
 
       <Button variant="primary" size="sm" className="px-4" type="submit">
-        Guardar
+        {user ? "Actualizar" : "Guardar"}
       </Button>
     </Form>
   );
@@ -102,11 +118,11 @@ const FormContent = ({ setReload, setShow }) => {
 
 export default FormContent;
 
-function values() {
+function values(user) {
   return {
-    Nombre: "",
-    Apellido: "",
-    Email: "",
-    Clave: "",
+    Nombre: "" || user?.Nombre,
+    Apellido: "" || user?.Apellido,
+    Email: "" || user?.Email,
+    Clave: "" || user?.Clave,
   };
 }

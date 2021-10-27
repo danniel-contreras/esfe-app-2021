@@ -3,7 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import ModalContent from "../global/Modal";
 import FormContent from "./Form";
 
-const TableContent = ({ users }) => {
+const TableContent = ({ users,setReload }) => {
   const [showEdit, setShowEdit] = useState(false);
   const [user, setUser] = useState();
   const handleedit = (user) => {
@@ -61,7 +61,7 @@ const TableContent = ({ users }) => {
         show={showEdit}
         setShow={setShowEdit}
       >
-        <FormContent user={user} />
+        <FormContent setShow={setShowEdit} setReload={setReload} user={user} />
       </ModalContent>
     </>
   );
